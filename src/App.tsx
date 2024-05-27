@@ -1,12 +1,14 @@
-
-  import { BrowserRouter, Route, Routes } from 'react-router-dom'
-  import './App.css'
-  import Footer from './components/Footer/footer'
-  import Navbar from './components/Navbar/navbar'
-  import Home from './paginas/home/home'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import './App.css'
+import Home from './paginas/home/Home'
 import Login from './paginas/login/Login'
 import { AuthProvider } from './contexts/AuthContext'
 import Cadastro from './paginas/cadastro/Cadastro'
+import ListaTemas from './components/temas/listaTemas/ListaTemas'
+import FormularioTema from './components/temas/formularioTema/FormularioTema'
+import Navbar from './components/navbar/Navbar'
+import Footer from './components/footer/Footer'
+import DeletarTema from './components/temas/deletarTema/DeletarTema'
 
   function App() {
     return (
@@ -17,10 +19,14 @@ import Cadastro from './paginas/cadastro/Cadastro'
             <div className='min-h-[80vh]'>
 
                <Routes>
-                 <Route path="/" element = {<Home/>}/>
-                 <Route path="/home" element = {<Home/>}/>
-                 <Route path="/cadastro" element = {<Cadastro/>}/>
-                 <Route path="/login" element = {<Login/>}/>
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cadastro" element={<Cadastro />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/temas" element={<ListaTemas />} />
+              <Route path="/cadastrarTema" element={<FormularioTema />} />
+              <Route path="/editarTema/:id" element={<FormularioTema />} />
+              <Route path="/deletarTema/:id" element={<DeletarTema />} />
                 </Routes>
           
              </div>
@@ -32,3 +38,5 @@ import Cadastro from './paginas/cadastro/Cadastro'
   }
 
   export default App
+
+ 

@@ -3,7 +3,6 @@ import './Cadastro.css'
 import Usuario from '../../models/Usuario'
 import { useNavigate } from 'react-router-dom';
 import { RotatingLines } from 'react-loader-spinner';
-
 import { cadastrarUsuario } from '../../services/Service';
 
 function Cadastro() {
@@ -154,7 +153,8 @@ function Cadastro() {
                            hover:bg-indigo-900 w-1/2 py-2
                            flex justify-center'
             >
-              {isLoading ? <RotatingLines
+              {isLoading ? 
+              <RotatingLines
                 strokeColor="white"
                 strokeWidth="5"
                 animationDuration="0.75"
