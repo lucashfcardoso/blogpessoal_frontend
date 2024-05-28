@@ -3,11 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import Tema from '../../../models/Tema';
 import { atualizar, buscar, cadastrar } from '../../../services/Service';
+import { toastAlerta } from '../../../util/toastAlerta';
 
 function FormularioTema() {
   const [tema, setTema] = useState<Tema>({} as Tema);
+
   let navigate = useNavigate();
+
   const { id } = useParams<{ id: string }>();
+
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
 
@@ -45,16 +49,17 @@ function FormularioTema() {
           }
         })
 
-        alert('Tema atualizado com sucesso')
+        toastAlerta('Tema atualizado com sucesso', 'sucesso')
         retornar()
 
       } catch (error: any) {
         if (error.toString().includes('403')) {
-          alert('O token expirou, favor logar novamente')
+          toastAlerta('O token expirou, favor logar novamente', 'info')
           handleLogout()
         } else {
-          alert('Erro ao atualizar o Tema')
+          toastAlerta('Erro ao atualizar o Tema', 'erro')
         }
+
       }
 
     } else {
@@ -65,14 +70,14 @@ function FormularioTema() {
           }
         })
 
-        alert('Tema cadastrado com sucesso')
+        toastAlerta('Tema cadastrado com sucesso', 'sucesso')
 
       } catch (error: any) {
         if (error.toString().includes('403')) {
-          alert('O token expirou, favor logar novamente')
+          toastAlerta('O token expirou, favor logar novamente', 'info')
           handleLogout()
         } else {
-          alert('Erro ao cadastrado o Tema')
+          toastAlerta('Erro ao cadastrado o Tema', 'erro')
         }
       }
     }
@@ -86,21 +91,18 @@ function FormularioTema() {
 
   useEffect(() => {
     if (token === '') {
-      alert('Você precisa estar logado');
+      toastAlerta('Você precisa estar logado', 'info');
       navigate('/login');
     }
   }, [token]);
 
   return (
-    
     <div className="container flex flex-col items-center justify-center mx-auto">
-    
       <h1 className="text-4xl text-center my-8">
         {id === undefined ? 'Cadastre um novo tema' : 'Editar tema'}
       </h1>
 
       <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoTema}>
-    
         <div className="flex flex-col gap-2">
           <label htmlFor="descricao">Descrição do tema</label>
           <input
@@ -112,15 +114,13 @@ function FormularioTema() {
             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
           />
         </div>
-    
         <button
           className="rounded text-slate-100 bg-indigo-400 hover:bg-indigo-800 w-1/2 py-2 mx-auto block"
-          type="submit">
+          type="submit"
+        >
           {id === undefined ? 'Cadastrar' : 'Editar'}
         </button>
-      
       </form>
-    
     </div>
   );
 }

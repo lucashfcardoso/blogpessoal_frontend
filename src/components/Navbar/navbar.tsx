@@ -29,7 +29,6 @@ function Navbar() {
               <Link to='/perfil' className='hover:underline'>Perfil</Link>
               <Link to='' onClick={logout} className='hover:underline'>Sair</Link>
             </div>
-            
           </div>
         </div>
       )
